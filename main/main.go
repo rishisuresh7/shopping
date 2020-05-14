@@ -26,6 +26,7 @@ func main() {
 	r := router.Router(f, logger)
 
 	n := negroni.New()
+	n.Use(f.NewLoggerMiddleware())
 	n.UseHandler(r)
 	n.Run(fmt.Sprintf(":%d", 4000))
 }

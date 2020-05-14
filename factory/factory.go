@@ -10,6 +10,7 @@ import (
 	"shopping-service/config"
 	"shopping-service/driver"
 	"shopping-service/healthcheck"
+	"shopping-service/middleware"
 	"sync"
 )
 //Factory Object for all methods
@@ -17,6 +18,7 @@ type Factory interface {
 	NewApplicationDetails() healthcheck.Application
 	NewExecuter() driver.MongoConnector
 	NewCollection(string) collection.Collection
+	NewLoggerMiddleware() middleware.Logger
 }
 
 var mongoConn sync.Once
@@ -77,4 +79,8 @@ func (f *factory) NewCollection(coll string) collection.Collection {
 
 func (f *factory) NewApplicationDetails() healthcheck.Application {
 	return healthcheck.NewApplicationDetails()
+}
+
+func (f *factory) NewLoggerMiddleware() middleware.Logger {
+	return middleware.NewLoggerMiddleware(f.logger)
 }
