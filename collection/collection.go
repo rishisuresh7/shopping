@@ -26,7 +26,7 @@ func (c *collection) GetCollection() (models.Result, error) {
 	result, err := c.executer.Reader(filter, c.collection)
 
 	if err != nil {
-		return models.Result{}, fmt.Errorf("unable to get collections")
+		return models.Result{}, fmt.Errorf("unable to get collections: %s", err)
 	}
 
 	return result.(models.Result), nil

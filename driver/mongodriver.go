@@ -48,6 +48,10 @@ func (m *mongoDriverConnector) Reader(filter bson.D, collection string) (interfa
 		return nil
 	})
 
+	if err != nil {
+		return nil, fmt.Errorf("unable to connect to database")
+	}
+
 	return result, nil
 }
 
