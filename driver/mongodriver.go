@@ -25,7 +25,7 @@ func NewMongoDriver(c *mongo.Client, d string) MongoConnector{
 
 func (m *mongoDriverConnector) Reader(filter bson.D, collection string) (interface{}, error) {
 	var result interface{}
-	ctx, cancel := context.WithTimeout(context.TODO(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.TODO(), 15*time.Second)
 	defer cancel()
 
 	session,err := m.client.StartSession()
@@ -67,6 +67,10 @@ func (m *mongoDriverConnector) parse(cursor *mongo.Cursor, c mongo.SessionContex
 			return nil, fmt.Errorf("%s",err)
 		}
 
+	}
+
+	if res == nil {
+		return nil, nil
 	}
 
 	return res, nil

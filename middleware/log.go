@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type Logger interface {
+type Middleware interface {
 	ServeHTTP(http.ResponseWriter, *http.Request, http.HandlerFunc)
 }
 
@@ -15,7 +15,7 @@ type log struct {
 	logger *logrus.Logger
 }
 
-func NewLoggerMiddleware(l *logrus.Logger ) Logger {
+func NewLoggerMiddleware(l *logrus.Logger ) Middleware {
 	return &log{logger: l}
 }
 

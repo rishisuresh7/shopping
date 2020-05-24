@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
 	"shopping-service/constants"
 )
 
@@ -42,6 +43,26 @@ func (e Error) ClientError(w http.ResponseWriter) error {
 	}
 
 	setHeaders(w, data, constants.ClientError)
+	return nil
+}
+
+func (e Error) Forbidden(w http.ResponseWriter) error {
+	data, err := json.Marshal(e)
+	if err != nil {
+		return fmt.Errorf("unable to encode interface")
+	}
+
+	setHeaders(w, data, constants.Forbidden)
+	return nil
+}
+
+func (e Error) UnAuthorized(w http.ResponseWriter) error {
+	data, err := json.Marshal(e)
+	if err != nil {
+		return fmt.Errorf("unable to encode interface")
+	}
+
+	setHeaders(w, data, constants.UnAuthorized)
 	return nil
 }
 

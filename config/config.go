@@ -6,4 +6,5 @@ type AppConfig struct {
 	MongoHost   string
 	MongoDatabase string
 	MongoPort int
+	ApiKey string
 }
